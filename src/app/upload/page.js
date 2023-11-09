@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { companyList, absContainerList, absAccountName } from "../utils/config";
+import * as Components from "../utils/components";
 
 export default function DocumentUploadPage() {
   const [selectedCompany, setSelectedCompany] = useState("");
@@ -93,9 +94,8 @@ export default function DocumentUploadPage() {
 
   return (
     <body>
-      <header>
-        <h1 class="gradient-text">CA GenAI</h1>
-      </header>
+      
+      <Components.TopHeader />
 
       <content
         className="content"

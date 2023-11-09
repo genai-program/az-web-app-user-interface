@@ -4,9 +4,11 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cognitiveSearch, initiateCognitiveSearch } from "../utils/function";
+import * as Components from "../utils/components";
+import "suneditor/dist/css/suneditor.min.css";
 
-export default function Details() {
-  const [loadingText, setLoadingText] = useState("Loading data");
+export default function Editor() {
+  /* const [loadingText, setLoadingText] = useState("Loading data");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -77,7 +79,7 @@ export default function Details() {
 
   useEffect(() => {
     pageLoading();
-  }, []);
+  }, []); */
 
   return (
     <body>
@@ -92,14 +94,15 @@ export default function Details() {
         </div>
       </div>
 
-      <header>
-        <h1 class="gradient-text">CA GenAI</h1>
-      </header>
+      <Components.TopHeader />
 
       <div id="companyName" class="company-name-header">
         Company Name Co., Ltd.
       </div>
 
+      <div style={{ marginLeft: "40px", marginRight: "40px", padding: "10px" }}>
+        <Components.SunEditorComponent />
+      </div>
       <div id="content" class="content" style={{ display: "none" }}>
         <div id="response-placeholder" class="response-placeholder"></div>
       </div>

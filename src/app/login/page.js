@@ -1,3 +1,10 @@
-export function Login() {
-  return <div>Login Page Placeholder</div>;
+import * as Components from "../utils/components";
+
+export default function Login() {
+  return (
+    <div>
+      <Components.TopHeader />
+      <div>Login Page Placeholder</div>
+    </div>
+  );
 }

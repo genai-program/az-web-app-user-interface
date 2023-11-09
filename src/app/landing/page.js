@@ -6,6 +6,7 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { companyList } from "../utils/config";
 import { parse } from "url";
+import * as Components from "../utils/components";
 
 export default function Landing() {
   function redirectToNew() {
@@ -14,7 +15,7 @@ export default function Landing() {
       alert("Please select a company.");
     } else {
       const queryString = "?companyName=" + encodeURIComponent(selectedCompany);
-      window.location.href = "details" + queryString;
+      window.location.href = "editor" + queryString;
     }
   }
 
@@ -29,9 +30,9 @@ export default function Landing() {
         <title>CA GenAI</title>
         <link rel="stylesheet" href="style.css" />
       </Head>
-      <header>
-        <h1 className="gradient-text">CA GenAI</h1>
-      </header>
+
+      <Components.TopHeader />
+
       <div className="welcome-container" style={{ fontWeight: "bold" }}>
         <h2 className="welcome-text">Welcome to </h2>
         <h2 className="welcome-text-grad"> CA Write-up Assistant</h2>
@@ -82,7 +83,7 @@ export default function Landing() {
               type="submit"
               href="/upload"
               onClick={redirectToNew}
-              style={{ marginRight: "1%", width:"250px", height:"60px" }}
+              style={{ marginRight: "1%", width: "250px", height: "60px" }}
             >
               Upload documents
             </button>
@@ -91,7 +92,7 @@ export default function Landing() {
               type="submit"
               href="/coPilot"
               onClickCapture={redirectToReview}
-              style={{ marginLeft: "1%", width:"250px", height:"60px" }}
+              style={{ marginLeft: "1%", width: "250px", height: "60px" }}
             >
               CA Copilot
             </button>

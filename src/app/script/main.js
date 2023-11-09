@@ -17,5 +17,5 @@ function redirectToNew() {
         alert("Please select a company.");
       } else {
     const queryString = "?companyName=" + encodeURIComponent(selectedCompany);
-    window.location.href = "details" + queryString;
+    window.location.href = "editor" + queryString;
   }}

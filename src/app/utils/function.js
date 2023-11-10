@@ -8,6 +8,7 @@ import {
   
   
   
+  
   export async function initiateCognitiveSearch() {
     var output = [];
     var messageHistory = [];
@@ -114,4 +115,4 @@ import {
     }
   }
 
-  
+

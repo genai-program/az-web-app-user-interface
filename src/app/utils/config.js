@@ -1,10 +1,23 @@
 export const companyList = ["Company A", "Company B", "Company C"];
 
+export const oaiInstanceName = "genai-acn-dev";
 export const baseUrl = "genai-acn-dev.openai.azure.com";
-export const deploymentId = "gpt-35-turbo-16k-dev";
-export const apiVersion = "2023-08-01-preview";
 
-export const apiKey = "99ede1d85c764a9cb65a0122fa4ce786";
+export const oaiDeploymentId = {
+  "gpt-35-turbo-dev": "gpt-35-turbo-dev",
+  "gpt-4-32k-dev": "gpt-4-32k-dev",
+  "text-embedding-ada-002-dev": "text-embedding-ada-002",
+};
+
+export const oaiModelName = {
+  "gpt-35-turbo-dev": "gpt-35-turbo",
+  "gpt-4-32k-dev": "gpt-4-32k",
+  "text-embedding-ada-002-dev": "text-embedding-ada-002",
+};
+
+export const oaiApiVersion = "2023-08-01-preview";
+
+export const oaiApiKey = "653ece376dbb4b869add16e29a5a3bc6";
 export const cognitiveSearchApiKey =
   "mExfnKGwNQfBjLU2xJbrfvDOTg8it6EJE9aFyeFH8XAzSeAirdrQ";
 export const endpoint = `https://${baseUrl}/openai/deployments/${deploymentId}/chat/completions?api-version=${apiVersion}`;
@@ -31,21 +44,15 @@ export const indexList = {
   },
 };
 
-
 // constants for Azure Blob Storage
 export const absAccountName = "cawudev85bbdatasources";
-export const absAccountKey = "OD/I30LERvZ207cvas6eyLcQUDCg+Jz05SGZec1YMtuET+tp2aqj/aj1jOP8PwLzdURetyqHiOJg+ASt0PmYuQ==";
+export const absAccountKey =
+  "OD/I30LERvZ207cvas6eyLcQUDCg+Jz05SGZec1YMtuET+tp2aqj/aj1jOP8PwLzdURetyqHiOJg+ASt0PmYuQ==";
 export const absContainerList = {
   "Cashflow Projection": "cashflow-projection",
-  "DBD": "dbd",
+  DBD: "dbd",
   "Financial Statement": "financial-statement",
   "Industry Outlook": "industry-outlook",
-  "NCB": "ncb",
-  "Risk Criteria": "risk-criteria"
-}
-
-
-
-
-
-
+  NCB: "ncb",
+  "Risk Criteria": "risk-criteria",
+};

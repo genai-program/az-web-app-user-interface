@@ -33,7 +33,7 @@ export function TopHeader() {
   ssr: false,
 }); */
 
-export function SunEditorComponent() {
+export function SunEditorComponent({ setContents }) {
   return (
     <div style={{ fontFamily: '"Inter", sans-serif' }}>
       <SunEditor
@@ -42,7 +42,7 @@ export function SunEditorComponent() {
         width="100%"
         autoFocus={true}
         setDefaultStyle="font-family: Latin, sans-serif; font-size: 16px;"
-        setContents="Content placeholder"
+        setContents={setContents}
       />
     </div>
   );

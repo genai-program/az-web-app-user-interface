@@ -8,6 +8,8 @@ import * as Components from "../utils/components";
 import "suneditor/dist/css/suneditor.min.css";
 
 export default function Editor() {
+
+  const caPlaceholder = 'ca placeholder here yo'
   /* const [loadingText, setLoadingText] = useState("Loading data");
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -101,7 +103,7 @@ export default function Editor() {
       </div>
 
       <div style={{ marginLeft: "40px", marginRight: "40px", padding: "10px" }}>
-        <Components.SunEditorComponent />
+        <Components.SunEditorComponent setContents={caPlaceholder} />
       </div>
       <div id="content" class="content" style={{ display: "none" }}>
         <div id="response-placeholder" class="response-placeholder"></div>

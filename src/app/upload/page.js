@@ -17,10 +17,17 @@ export default function DocumentUploadPage() {
   };
 
   const handleFileChange = (event, documentType) => {
-    setFiles({
-      ...files,
-      [documentType]: event.target.files[0],
-    });
+    const newFile = event.target.files[0];
+    setFiles((prevFiles) => ({
+      ...prevFiles,
+      [documentType]: newFile,
+    }));
+
+    // Update the corresponding file-chosen span
+    const fileChosenSpan = document.getElementById(
+      "file-chosen-" + documentType
+    );
+    fileChosenSpan.textContent = newFile ? newFile.name : "No file chosen";
   };
 
   // Call your API to get the SAS token and URL
@@ -41,15 +48,11 @@ export default function DocumentUploadPage() {
     return data.sasToken;
   };
 
-  const uploadFileToBlobStorage = async (documentType, file) => {
+  async function uploadFileToBlobStorage (documentType, file) {
     const containerName = absContainerList[documentType];
     const blobName = `${selectedCompany}__________${file.name}`;
     const sasToken = await getBlobSasToken(containerName);
-    //const sasToken = '?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-11-17T15:54:02Z&st=2023-11-07T07:54:02Z&spr=https&sig=%2BJItwlV0VgwN9ZKZFgoz3B%2FVlGI0f%2F9hj65D1yXS4C4%3D'
     const sasUrl = `https://${absAccountName}.blob.core.windows.net/${containerName}/${blobName}?${sasToken}`;
-    //const sasUrl = `https://cawudev85bb.blob.core.windows.net/${blobName}?sp=racwd&st=2023-11-07T07:49:45Z&se=2023-11-16T15:49:45Z&spr=https&sv=2022-11-02&sr=c&sig=7UTLuMDkbRbtUBL%2F0gFkrcIFH%2FswUmkZP5Itnvpv9bc%3D`;
-
-    console.log("SAS URL:", sasUrl);
 
     try {
       const response = await fetch(sasUrl, {
@@ -74,7 +77,12 @@ export default function DocumentUploadPage() {
     }
   };
 
-  const handleSubmit = async () => {
+  async function handleSubmit() {
+
+    if (!allDocumentsSelected || isUploading) {
+      alert("Please select documents.");
+    }
+
     console.log("Submit button clicked");
     setIsUploading(true);
     try {
@@ -86,7 +94,7 @@ export default function DocumentUploadPage() {
       console.error("An error occurred during the upload:", error);
     }
     setIsUploading(false);
-  };
+  }
 
   const allDocumentsSelected = Object.keys(absContainerList).every(
     (type) => files[type]
@@ -94,58 +102,148 @@ export default function DocumentUploadPage() {
 
   return (
     <body>
-      
       <Components.TopHeader />
 
-      <content
-        className="content"
+      <modaldimmer
+        id="modalDimmer"
         style={{
           display: "block",
-          position: "absolute",
-          justifyContent: "center",
           alignItems: "center",
-          padding: "15px",
-          margin: "15px",
+          justifyContent: "center",
+          position: "fixed",
+          zIndex: "1",
+          paddingTop: "100px",
+          left: "0",
+          top: "0",
+          width: "100%",
+          height: "100%",
+          overflow: "auto",
+          backgroundColor: "rgb(0, 0, 0)",
+          backgroundColor: "rgba(0, 0, 0, 0.75)",
         }}
       >
         <div
+          className="content"
           style={{
-            justifyContent: "center",
-            fontSize: "25px",
-            fontWeight: "bold",
-            textAlign: "center",
+            height: "750px",
+            backgroundColor: "#fefefe",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             padding: "15px",
             margin: "15px",
+            textAlign: "center",
+            verticalAlign: "middle",
           }}
         >
-          Upload Documents for {selectedCompany}
-        </div>
-        <select value={selectedCompany} onChange={handleCompanyChange}>
-          {companyList.map((company, idx) => (
-            <option key={idx} value={company}>
-              {company}
+          <div
+            style={{
+              justifyContent: "center",
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center",
+              padding: "10px",
+              margin: "10px",
+            }}
+          >
+            Select a company to upload documents
+          </div>
+
+          <select value={selectedCompany} onChange={handleCompanyChange}>
+            <option value="" selected disabled hidden>
+              select a company
             </option>
+            {companyList.map((company, idx) => (
+              <option key={idx} value={company}>
+                {company}
+              </option>
+            ))}
+          </select>
+
+          {Object.keys(absContainerList).map((documentType, idx) => (
+            <section
+              key={idx}
+              style={{
+                fontSize: "12px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                margin: "10px",
+              }}
+            >
+              <h2 style={{ margin: "10px", textAlign: "left" }}>
+                {documentType}
+              </h2>
+
+              <input
+                id={"file-upload-" + documentType}
+                style={{
+                  display: "none",
+                  margin: "10px",
+                  textAlign: "right",
+                }}
+                type="file"
+                onChange={(e) => handleFileChange(e, documentType)}
+              />
+              <div>
+              <div>
+                <label
+                  for={"file-upload-" + documentType}
+                  style={{
+                    border: "1px solid #ccc",
+                    display: "block",
+                    padding: "6px 12px",
+                    margin: "10px",
+                    cursor: "pointer",
+                    textAlign: "center",
+                    justifyContent: "right",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxWidth: "100px",
+                  }}
+                >
+                  Choose File
+                </label>
+                </div>
+                <div>
+                <span
+                  id={"file-chosen-" + documentType}
+                  style={{
+                    display: "block",
+                    textAlign: "right",
+                    alignItems: "right",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxWidth: "100px",
+                  }}
+                >
+                  No file chosen
+                </span>
+              </div>
+              </div>
+            </section>
           ))}
-        </select>
 
-        {Object.keys(absContainerList).map((documentType, idx) => (
-          <section key={idx}>
-            <h2>{documentType}</h2>
-            <input
-              type="file"
-              onChange={(e) => handleFileChange(e, documentType)}
-            />
-          </section>
-        ))}
-
-        <button
-          disabled={!allDocumentsSelected || isUploading}
-          onClick={handleSubmit}
-        >
-          Confirm
-        </button>
-        <button onClick={() => setFiles({})}>Cancel</button>
-      </content>
+          <button
+            /* disabled={!allDocumentsSelected || isUploading} */
+            onClick={handleSubmit}
+            style={{}}
+          >
+            Confirm
+          </button>
+          <button
+            onClick={() => {
+              setFiles({});
+              window.location.href = "/";
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </modaldimmer>
     </body>
   );
 }

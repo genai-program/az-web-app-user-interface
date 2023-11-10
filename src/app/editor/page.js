@@ -9,7 +9,7 @@ import "suneditor/dist/css/suneditor.min.css";
 
 export default function Editor() {
 
-  const caPlaceholder = 'ca placeholder here yo'
+  const caPlaceholder = 'ca placeholder here yo' //await getText()
   /* const [loadingText, setLoadingText] = useState("Loading data");
   const [currentIndex, setCurrentIndex] = useState(0);
 

@@ -3,19 +3,29 @@
 import Image from "next/image";
 import Head from "next/head";
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { companyList } from "../utils/config";
 import { parse } from "url";
 import * as Components from "../utils/components";
 
 export default function Landing() {
+  const [modalDisplay, setModalDisplay] = useState("none");
+
+  function handleUploadButton() {
+    setModalDisplay("block");
+  }
+
+  function handleCloseUpload() {
+    setModalDisplay("none");
+  }
+
   function redirectToNew() {
     const selectedCompany = document.getElementById("select").value;
     if (!selectedCompany) {
       alert("Please select a company.");
     } else {
       const queryString = "?companyName=" + encodeURIComponent(selectedCompany);
-      window.location.href = "editor" + queryString;
+      window.location.href = "upload" + queryString;
     }
   }
 
@@ -32,58 +42,82 @@ export default function Landing() {
       </Head>
 
       <Components.TopHeader />
+      <Components.UploadModal
+        modalDisplay={modalDisplay}
+        closeModal={handleCloseUpload}
+      />
 
-      <div className="welcome-container" style={{ fontWeight: "bold" }}>
-        <h2 className="welcome-text">Welcome to </h2>
-        <h2 className="welcome-text-grad"> CA Write-up Assistant</h2>
+      <div className="welcome-container">
+        <h2
+          style={{
+            padding: "2.5%",
+            fontWeight: "bold",
+            fontSize: "45px",
+            whiteSpace: "nowrap",
+            background: "-webkit-linear-gradient(45deg, #2b59ff, #68cff7)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          {" "}
+          CA Write-up Copilot
+        </h2>
       </div>
       <main>
-        <div className="description-container">
-          <p className="description-top">
-            <strong>Gen AI Enablement</strong> in CA write up process
-          </p>
-          <p className="description-body">
-            <strong>
-              Gen AI to empower RM team on CA write-up with focus on Credit
-              Analysis process –
-            </strong>{" "}
-            by automating information collection, analysis, summarization, and
-            write up the document
-          </p>
-        </div>
-        <div className="step">
-          <p>
-            <strong>Step 1</strong>
-            <br />- Select company -
-          </p>
-        </div>
-
-        <div style={{ textAlign: "center" }}>
-          <select id="select" className="select">
-            <option value="" selected disabled hidden>
-              select a company
-            </option>
-
-            {companyList.map((company, index) => (
-              <option key={index} value={company}>
-                {company}
-              </option>
-            ))}
-          </select>
-
-          <div className="step">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "auto",
+            width: "700px",
+            height: "125px",
+            border: "1px solid #e4e4e4",
+            boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.1)",
+            paddingLeft: "3%",
+            paddingRight: "3%",
+          }}
+        >
+          <div
+            style={{
+              alignSelf: "center",
+              margin: "auto",
+              color: "#595959",
+              textAlign: "left",
+              fontSize: "small",
+            }}
+          >
+            <p style={{ paddingBottom: "1%" }}>
+              <strong>Generative AI Enablement</strong> in credit application
+              write-up process
+            </p>
             <p>
-              <strong>Step 2</strong>
-              <br />- Select scenario -
+              Introducing CA Write-up Copilot: The companion application
+              transforming how RM create credit applications with easy document
+              uploads and automated generation of applications, RM can swiftly
+              review and refine submissions.
             </p>
           </div>
+        </div>
+
+        <div style={{ textAlign: "center" , padding: "5%" }}>
+          <div className="step">
+            <p>
+              <strong>- Select operation -</strong>
+            </p>
+          </div>
+
           <div>
             <button
               id="uploadDocuments"
               type="submit"
               href="/upload"
-              onClick={redirectToNew}
-              style={{ marginRight: "1%", width: "250px", height: "60px" }}
+              onClick={handleUploadButton}
+              className="landing-button"
+              style={{
+                marginRight: "1%",
+              }}
             >
               Upload documents
             </button>
@@ -92,7 +126,10 @@ export default function Landing() {
               type="submit"
               href="/coPilot"
               onClickCapture={redirectToReview}
-              style={{ marginLeft: "1%", width: "250px", height: "60px" }}
+              className="landing-button"
+              style={{
+                marginLeft: "1%",
+              }}
             >
               CA Copilot
             </button>

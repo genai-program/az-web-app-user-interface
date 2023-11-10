@@ -20,8 +20,8 @@ export const oaiApiVersion = "2023-08-01-preview";
 export const oaiApiKey = "653ece376dbb4b869add16e29a5a3bc6";
 export const cognitiveSearchApiKey =
   "mExfnKGwNQfBjLU2xJbrfvDOTg8it6EJE9aFyeFH8XAzSeAirdrQ";
-export const endpoint = `https://${baseUrl}/openai/deployments/${deploymentId}/chat/completions?api-version=${apiVersion}`;
-export const extensionEndpoint = `https://${baseUrl}/openai/deployments/${deploymentId}/extensions/chat/completions?api-version=${apiVersion}`;
+export const endpoint = `https://${baseUrl}/openai/deployments/${oaiDeploymentId}/chat/completions?api-version=${oaiApiVersion}`;
+export const extensionEndpoint = `https://${baseUrl}/openai/deployments/${oaiDeploymentId}/extensions/chat/completions?api-version=${oaiApiVersion}`;
 
 export const indexList = {
   "Financial Statement": {

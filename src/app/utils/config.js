@@ -1,7 +1,7 @@
 export const companyList = ["Company A", "Company B", "Company C"];
 
-export const oaiInstanceName = "genai-acn-dev";
-export const baseUrl = "genai-acn-dev.openai.azure.com";
+export const oaiInstanceName = "azure-openai-848653";
+export const baseUrl = "azure-openai-848653.openai.azure.com";
 
 export const oaiDeploymentId = {
   "gpt-35-turbo-dev": "gpt-35-turbo-dev",

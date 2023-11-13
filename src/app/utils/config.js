@@ -42,6 +42,18 @@ export const indexList = {
   "Cashflow Projection": {
     index: "cawu-cashflow-projection-test",
   },
+  "Annual Report": {
+    index: "cawu-annual-report-test"
+  },
+  "Additional Documents": {
+    index: "cawu-additional-document-test"
+  },
+  "External Publication": {
+    index: "cawu-external-publication-test"
+  },
+  "External Rating": {
+    index: "cawu-external-rating-test"
+  }
 };
 
 // constants for Azure Blob Storage

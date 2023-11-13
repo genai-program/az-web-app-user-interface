@@ -4,8 +4,10 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cognitiveSearch, initiateCognitiveSearch } from "../utils/function";
-import * as Components from "../utils/components";
+
 import "suneditor/dist/css/suneditor.min.css";
+import TextEditor from "../utils/components/text-editor";
+import NavigationBar from "../utils/components/navigation-bar";
 
 export default function Editor() {
 
@@ -96,14 +98,16 @@ export default function Editor() {
         </div>
       </div>
 
-      <Components.TopHeader />
+      <NavigationBar />
 
       <div id="companyName" class="company-name-header">
         Company Name Co., Ltd.
       </div>
 
       <div style={{ marginLeft: "40px", marginRight: "40px", padding: "10px" }}>
-        <Components.SunEditorComponent setContents={caPlaceholder} />
+
+        <TextEditor setContents={caPlaceholder} />
+
       </div>
       <div id="content" class="content" style={{ display: "none" }}>
         <div id="response-placeholder" class="response-placeholder"></div>

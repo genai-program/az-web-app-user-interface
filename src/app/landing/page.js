@@ -6,7 +6,9 @@ import Script from "next/script";
 import { useEffect, useState } from "react";
 import { companyList } from "../utils/config";
 import { parse } from "url";
-import * as Components from "../utils/components";
+
+import UploadModal from "../utils/components/upload-modal";
+import NavigationBar from "../utils/components/navigation-bar";
 
 export default function Landing() {
   const [modalDisplay, setModalDisplay] = useState("none");
@@ -41,11 +43,8 @@ export default function Landing() {
         <link rel="stylesheet" href="style.css" />
       </Head>
 
-      <Components.TopHeader />
-      <Components.UploadModal
-        modalDisplay={modalDisplay}
-        closeModal={handleCloseUpload}
-      />
+      <NavigationBar />
+      <UploadModal modalDisplay={modalDisplay} closeModal={handleCloseUpload} />
 
       <div className="welcome-container">
         <h2
@@ -101,7 +100,7 @@ export default function Landing() {
           </div>
         </div>
 
-        <div style={{ textAlign: "center" , padding: "5%" }}>
+        <div style={{ textAlign: "center", padding: "5%" }}>
           <div className="step">
             <p>
               <strong>- Select operation -</strong>
